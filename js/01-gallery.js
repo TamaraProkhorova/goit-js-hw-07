@@ -1,42 +1,45 @@
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
 
-// {/* <div class="gallery__item">
-//   <a class="gallery__link" href="large-image.jpg">
-//     <img
-//       class="gallery__image"
-//       src="small-image.jpg"
-//       data-source="large-image.jpg"
-//       alt="Image description"
-//     />
-//   </a>
-// </div> */}
 console.log(galleryItems)
-const galleryListRef = document.querySelector(".gallery");
-// const galleryMarkup = galleryItems(items);
 
-const createGalleryMarkup = (preview) => {
-    galleryItems.map(item =>{
-        return 
-       `<div class="gallery__item">
-       <a class="gallery__link" href="large-image.jpg">
-         <img
-           class="gallery__image"
-           src="small-image.jpg"
-           data-source="large-image.jpg"
-           alt="Image description"
-         />
-       </a>
-     </div>`
-    })
-    console.log(galleryMarkup)
+const galleryListRef = document.querySelector(".gallery");
+
+function createImagesCardsMarkup(images) {
+  return images
+  .map
+  ((image) =>
+      `<div class="gallery__item">
+       <a class="gallery__link" href="${image.original}">
+       <img
+         class="gallery__image"
+         src="${image.preview}"
+         data-source="${image.original}"
+         alt="${image.descroption}"
+       />
+     </a>
+   </div>`
+  )
+  .join(" ")
 }
 
+const galaryMarkup = createImagesCardsMarkup(galleryItems)
+galleryListRef.insertAdjacentHTML("beforeend", galaryMarkup);
 
-// const markup = galleryItems
-//   .map((galleryItem) => `<li class="list-item"><img class="image" src=${galleryItem.preview}, alt=${galleryItem.description}></li>`)
-//   .join("");
+// console.log(galleryListRef)
 
-//   galleryListRef.insertAdjacentHTML("beforeend", markup);
 
-// console.log(galleryItems);
+galleryListRef.addEventListener("click", onImageClick)
+
+function onImageClick(event) {
+  event.preventDefault()
+  if(event.target.nodeName !== "IMG"){
+    return
+  }
+const instance = basicLightbox.create(`
+    <img src="${event.target.dataset.source}" width="800" height="600">
+`)
+
+instance.show()
+}
+
