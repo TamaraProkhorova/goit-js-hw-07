@@ -15,7 +15,7 @@ function createImagesCardsMarkup(images) {
          class="gallery__image"
          src="${image.preview}"
          data-source="${image.original}"
-         alt="${image.descroption}"
+         alt="${image.description}"
        />
      </a>
    </div>`
